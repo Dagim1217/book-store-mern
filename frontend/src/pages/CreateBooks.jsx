@@ -21,7 +21,7 @@ const CreateBooks = () => {
     };
     setLoading(true);
     axios
-      .post('https://book-store-mern-9ct7.onrender.com', data)
+      .post('/books', data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Created successfully', { variant: 'success' });
@@ -29,7 +29,6 @@ const CreateBooks = () => {
       })
       .catch((error) => {
         setLoading(false);
-        // alert('An error happened. Please Chack console');
         enqueueSnackbar('Error', { variant: 'error' });
         console.log(error);
       });
@@ -47,7 +46,7 @@ const CreateBooks = () => {
             type='text'
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2 w-full'
+            className='border-2 border-gray-500 px-4 py-2  w-full'
           />
         </div>
         <div className='my-4'>
@@ -56,7 +55,7 @@ const CreateBooks = () => {
             type='text'
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2  w-full '
+            className='border-2 border-gray-500 px-4 py-2  w-full'
           />
         </div>
         <div className='my-4'>
@@ -65,7 +64,7 @@ const CreateBooks = () => {
             type='number'
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2  w-full '
+            className='border-2 border-gray-500 px-4 py-2  w-full'
           />
         </div>
         <button className='p-2 bg-sky-300 m-8' onClick={handleSaveBook}>
@@ -74,6 +73,6 @@ const CreateBooks = () => {
       </div>
     </div>
   );
-}
+};
 
-export default CreateBooks
+export default CreateBooks;

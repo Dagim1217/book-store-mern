@@ -11,24 +11,24 @@ const EditBook = () => {
   const [publishYear, setPublishYear] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/books/${id}`)
-    .then((response) => {
+    axios.get(`/books/${id}`)
+      .then((response) => {
         setAuthor(response.data.author);
-        setPublishYear(response.data.publishYear)
-        setTitle(response.data.title)
+        setPublishYear(response.data.publishYear);
+        setTitle(response.data.title);
         setLoading(false);
       }).catch((error) => {
         setLoading(false);
-        alert('An error happened. Please Chack console');
+        alert('An error happened. Please Check console');
         console.log(error);
       });
   }, [])
-  
+
   const handleEditBook = () => {
     const data = {
       title,
@@ -37,7 +37,7 @@ const EditBook = () => {
     };
     setLoading(true);
     axios
-      .put(`https://book-store-mern-9ct7.onrender.com/${id}`, data)
+      .put(`/books/${id}`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Edited successfully', { variant: 'success' });
@@ -45,7 +45,6 @@ const EditBook = () => {
       })
       .catch((error) => {
         setLoading(false);
-        // alert('An error happened. Please Chack console');
         enqueueSnackbar('Error', { variant: 'error' });
         console.log(error);
       });
@@ -63,7 +62,7 @@ const EditBook = () => {
             type='text'
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2 w-full'
+            className='border-2 border-gray-500 px-4 py-2  w-full'
           />
         </div>
         <div className='my-4'>
@@ -72,7 +71,7 @@ const EditBook = () => {
             type='text'
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2  w-full '
+            className='border-2 border-gray-500 px-4 py-2  w-full'
           />
         </div>
         <div className='my-4'>
@@ -81,7 +80,7 @@ const EditBook = () => {
             type='number'
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2  w-full '
+            className='border-2 border-gray-500 px-4 py-2  w-full'
           />
         </div>
         <button className='p-2 bg-sky-300 m-8' onClick={handleEditBook}>
@@ -89,7 +88,7 @@ const EditBook = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default EditBook
+export default EditBook;
