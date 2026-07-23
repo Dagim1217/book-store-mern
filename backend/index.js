@@ -13,13 +13,18 @@ app.use(cors());
 // API Routes
 app.use('/books', booksRoute);
 
-// Locate the folder where the frontend builds its static assets (Fixed Path)
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+// This tells the server exactly where the project sits on Render's computer
+const currentWorkingDir = process.cwd();
 
-// Serve the HTML layout file for any route that isn't an API route (Fixed Path)
+// If Render is locked inside 'backend', look inside 'frontend/dist'. Otherwise, adjust path.
+const frontendBuildPath = currentWorkingDir.endsWith('backend')
+  ? path.join(currentWorkingDir, '../frontend/dist')
+  : path.join(currentWorkingDir, 'frontend/dist');
+
+app.use(express.static(frontendBuildPath));
+
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+  res.sendFile(path.join(frontendBuildPath, 'index.html'));
 });
 
 mongoose
