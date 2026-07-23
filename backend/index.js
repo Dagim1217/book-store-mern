@@ -3,7 +3,7 @@ import { PORT, mongoDBURL } from './config.js';
 import mongoose from 'mongoose';
 import booksRoute from './routes/booksRoute.js';
 import cors from 'cors';
-import path from 'path'; // 1. Import path utilities
+import path from 'path';
 
 const app = express();
 
@@ -13,11 +13,11 @@ app.use(cors());
 // API Routes
 app.use('/books', booksRoute);
 
-// 2. Locate the folder where the frontend builds its static assets
+// Locate the folder where the frontend builds its static assets (Fixed Path)
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, '/frontend/dist')));
+app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
 
-// 3. Serve the HTML layout file for any route that isn't an API route
+// Serve the HTML layout file for any route that isn't an API route (Fixed Path)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
 });
